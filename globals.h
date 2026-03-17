@@ -12,13 +12,14 @@ class Globals : public QObject
     QML_SINGLETON
     Q_PROPERTY(int num MEMBER m_num NOTIFY numChanged FINAL)
 public:
-    explicit Globals(QObject *parent = nullptr);
+    static Globals *create(QQmlEngine *qmlEngine, QJSEngine *);
     Q_INVOKABLE void generateNumber();
 
 signals:
     void numChanged();
 
 private:
+    explicit Globals(QObject *parent = nullptr);
     int m_num = 0;
 };
 
