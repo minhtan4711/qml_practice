@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "bingomodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,16 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
+
+    BingoModel bingoModel; //create bingoModel
+
+    //add list elements to bingoModel
+    bingoModel.addListElement();
+    bingoModel.addListElement();
+    bingoModel.addListElement();
+    bingoModel.addListElement();
+
+    engine.setInitialProperties({{"bingoModel", QVariant::fromValue(&bingoModel)}}); //set initial properties for QML_UNCREATABLE
     engine.loadFromModule("qml_intermediate", "Main");
 
     return app.exec();
