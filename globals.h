@@ -13,7 +13,7 @@ class Globals : public QObject
     Q_PROPERTY(int num MEMBER m_num NOTIFY numChanged FINAL)
     Q_PROPERTY(GeneratorStatus status MEMBER m_status NOTIFY statusChanged FINAL)
 public:
-    explicit Globals(QObject *parent = nullptr);
+    static Globals *create(QQmlEngine *qmlEngine, QJSEngine *);
     Q_INVOKABLE void generateNumber();
 
     enum GeneratorStatus { Ready = 0, Loading };
@@ -24,6 +24,7 @@ signals:
     void statusChanged();
 
 private:
+    explicit Globals(QObject *parent = nullptr);
     int m_num = 0;
     GeneratorStatus m_status = Ready;
 };
